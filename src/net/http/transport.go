@@ -2425,6 +2425,7 @@ func (pc *persistConn) roundTrip(req *transportRequest) (resp *Response, err err
 			pc.close(errTimeout)
 			return nil, errTimeout
 		case re := <-resc:
+			req.closeBody()
 			if (re.res == nil) == (re.err == nil) {
 				panic(fmt.Sprintf("internal error: exactly one of res or err should be set; nil=%v", re.res == nil))
 			}
